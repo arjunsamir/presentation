@@ -1,0 +1,10 @@
+node_modules/
+/.env
+.cache/
+.parcel-cache/
+*.code-workspace
+dist/
+.parcel-cache
+*.code-workspace
+.DS_Store
+*.DS_Store
