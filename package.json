@@ -2,7 +2,7 @@
   "name": "presentation",
   "version": "1.0.0",
   "description": "Re-inventing PowerPoint because I was bored",
-  "main": "server.js",
+  "main": "index.js",
   "repository": "https://github.com/arjunsamir/presentation.git",
   "author": "Arjun Patel <47369740+arjunsamir@users.noreply.github.com>",
   "license": "MIT",
