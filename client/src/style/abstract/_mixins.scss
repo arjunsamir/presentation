@@ -1,0 +1,70 @@
+@mixin link {
+  &, &:link, &:visited { @content };
+}
+
+@mixin uppercase {
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+@mixin flexCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexGap($gap: 1.2rem, $direction: "row") {
+
+  & > *:not(:last-child) {
+      @if $direction == "row" {
+          margin-right: $gap;
+      }
+      @else if $direction == "column" {
+          margin-bottom: $gap;
+      }
+      @else if $direction == "row-reverse" {
+          margin-left: $gap;
+      }
+      @else if $direction == "column-reverse" {
+          margin-top: $gap;
+      }
+  }
+}
+
+
+@mixin blockGap($gap: 1.2rem) {
+  & > *:not(:last-child) {
+      margin-bottom: $gap;
+  }
+}
+
+@mixin overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  height: 100%;
+  width: 100%;
+}
+
+@mixin pseudo {
+  display: block;
+  content: '';
+  position: absolute;
+}
+
+@mixin cover {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@mixin absoluteFull {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+}

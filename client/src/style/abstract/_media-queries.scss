@@ -1,0 +1,46 @@
+// MEDIA QUERIES
+/*
+0 - 400px:      iPhone Small (phone)
+400 - 600px:    Phone (phone)
+600 - 900px:    Tablet Portrait (tab-port)
+900 - 1200px:   Tablet Landscape (tab-land)
+1200 - 1800px:  Desktop (This is where our normal styles apply)
+1800+           Large Desktop (desktop)
+*/
+
+@mixin iphone {
+  @media(max-width: 23em) { @content }; //400px
+}
+
+@mixin phone {
+  @media(max-width: 37.5em) { @content }; //600px
+}
+
+@mixin ipad {
+  @media(max-width: 56.25em) { @content }; //900px
+}
+
+@mixin ipadPro {
+  @media(max-width: 75em) { @content }; //1200px
+}
+
+@mixin laptop {
+  @media(max-width: 85em) { @content }; //1400px
+}
+
+@mixin respond($breakpoint) {
+  @media(max-width: $breakpoint) { @content }; //900px
+}
+
+@mixin respond-y($breakpoint) {
+  @media(max-height: $breakpoint) { @content }; //900px
+}
+
+
+@mixin light {
+  @media( prefers-color-scheme: light ) { @content }; // Light Theme
+}
+
+@mixin dark {
+  @media( prefers-color-scheme: dark ) { @content }; // Dark Theme
+}
