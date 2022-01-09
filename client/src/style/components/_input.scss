@@ -1,0 +1,124 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.input {
+
+  &__main {
+
+    --input-border-color: rgba(255, 255, 255, 0.25);
+    --input-label-color: rgba(255, 255, 255, 0.65);
+    --input-text-color: #fff;
+    --input-background-color: rgba(0, 0, 0, 0.25);
+    --input-transition: 0.3s ease-in-out;
+
+    background-color: var(--input-background-color);
+    border-bottom: 4px solid var(--input-border-color);
+    border-radius: 4px;
+    padding: 1.6rem 2.4rem;
+    transition: border var(--input-transition);
+    display: flex;
+    align-items: center;
+
+    &:focus-within {
+      --input-border-color: var(--primary);
+      --input-label-color: var(--primary);
+    }
+
+  }
+
+  &__error {
+    font-size: 1.8rem;
+    padding: 1.6rem 1.6rem 1.5rem;
+    height: 5.6rem;
+    opacity: 0;
+
+    pointer-events: none;
+    user-select: none;
+    transition: all var(--input-transition);
+  }
+
+  &.error &__error {
+    opacity: 1;
+  }
+
+  &.error &__main {
+    --input-border-color: var(--error);
+    --input-label-color: var(--error);
+  }
+
+  &__label {
+    display: block;
+    font-weight: 700;
+    color: var(--input-label-color);
+    transition: color var(--input-transition);
+  }
+
+  &__field {
+    flex-grow: 10;
+  }
+
+  &__input {
+    border: none;
+    background: none;
+    display: block;
+    width: 100%;
+    font-size: 3.2rem;
+    line-height: 1.5;
+    font-weight: 300;
+    color: var(--input-text-color);
+
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  &__submit {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--primary);
+    height: 4.8rem;
+    width: 4.8rem;
+
+    border: 2px solid transparent;
+    border-radius: 50%;
+
+    cursor: pointer;
+    transition: transform .1s ease-in;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+
+    svg {
+      height: 100%;
+      width: 100%;
+      transition: transform .1s ease-in;
+    }
+
+    &.loading {
+      border-top-color: var(--primary);
+      animation: spin .6s cubic-bezier(0.79, 0.33, 0.14, 0.53) infinite;
+
+      svg {
+        transform: scale(0);
+      }
+
+    }
+  }
+
+  &.error &__submit {
+    color: var(--error);
+  }
+  
+  &.submit-not-allowed &__submit {
+    transform: scale(0);
+  }
+
+}

@@ -1,0 +1,15 @@
+.waiting-room {
+  
+  min-height: 100vh;
+  @include flexCenter;
+
+   &__container {
+
+    h1 {
+      font-size: 4.8rem;
+      text-align: center;
+    }
+
+   }
+
+}

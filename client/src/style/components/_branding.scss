@@ -1,0 +1,20 @@
+.top-branding {
+  position: fixed;
+  top: 4.8rem;
+  left: 0;
+  
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+
+  h2 {
+    font-weight: 500;
+
+    span {
+      font-weight: 300;
+      opacity: 0.6;
+    }
+  }
+
+}

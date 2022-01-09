@@ -33,8 +33,8 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(compression());
 
 // Apply Routes
-app.post('/authenticate', routes.authenticate);
-// app.get('/', (req, res, next) => res.json({ message: 'Welcome to the API' }));
+app.post('/api/authenticate', routes.authenticate);
+app.post('/api/validate', routes.validateCode);
 app.get('*', routes.redirect)
 
 // Global Error Handler

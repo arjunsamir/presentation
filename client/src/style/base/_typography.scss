@@ -48,15 +48,25 @@
 }
 
 
+$body-font: sofia-pro, sans-serif;
+$heading-font: 'Recoleta', sans-serif;
+
+
 // Start Fucking With Typography
 body {
   font-size: 1.6rem;
+  font-family: $body-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3 {
-  font-family: 'Recoleta', sans-serif;
+  font-family: $heading-font;
   font-weight: 400;
   line-height: 1.2;
+}
+
+
+button, input, textarea {
+  font-family: $body-font;
 }

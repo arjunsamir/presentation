@@ -1,0 +1,28 @@
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading);
+}
+
+label, input[type="text"], input[type="email"], input[type="password"], input[type="number"], select, textarea {
+  display: block;
+  &:focus {
+      outline: none;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+img, svg {
+  display: block;
+}
+
+hr {
+  display: block;
+  border: none;
+}

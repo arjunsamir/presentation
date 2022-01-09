@@ -1,18 +1,24 @@
 import { useState, useEffect } from "react";
 import io from 'socket.io-client';
 
-const useSocket = () => {
+const useSocket = (id) => {
 
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-      
-      const newSocket = io(process.env.REACT_APP_API_DOMAIN);
-      setSocket(newSocket);
+    
+    if (!id) return;
+
+    const newSocket = io(process.env.REACT_APP_API_DOMAIN);
+    setSocket(newSocket);
+
+    console.log(newSocket);
+
+    console.log(`Socket Connected: ${id}`);
+
+    return () => newSocket.close();
   
-      return () => newSocket.close();
-  
-  }, []);
+  }, [id]);
 
   return socket;
 

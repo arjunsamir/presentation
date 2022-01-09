@@ -19,8 +19,17 @@ const reducer = (state = initialState, action) => {
     case "SET_ROLE":
       return merge("role");
 
-    case "SET_SECRET":
-      return merge("secret");
+    case "SET_NAME":
+      return merge("name");
+
+    case "SET_COUNT":
+      return merge("count");
+
+    case "SET_ID":
+      return merge("id");
+
+    case "SET_MULTIPLE":
+      return Object.assign({}, state, action.data)
 
     default:
       return state;
