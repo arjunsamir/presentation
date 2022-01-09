@@ -1,0 +1,27 @@
+.play-button {
+
+  background: none;
+  border: none;
+  color: var(--primary);
+
+  height: 6.4rem;
+  width: 6.4rem;
+
+  cursor: pointer;
+
+  transition: transform .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  &.disabled {
+    transform: scale(0);
+  }
+
+}

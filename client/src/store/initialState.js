@@ -13,7 +13,8 @@ const initialState = {
   name: "",
   count: 0,
   // id: window.sessionStorage.getItem("id") ?? ""
-  id: ""
+  id: "",
+  counting: false
 }
 
 export default initialState;

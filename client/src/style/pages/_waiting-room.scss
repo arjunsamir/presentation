@@ -2,14 +2,55 @@
   
   min-height: 100vh;
   @include flexCenter;
+  position: relative;
+
+  &__countdown {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    #canvas-number {
+      width: 680px;
+      height: 420px;
+      z-index: 1;
+    }
+
+  }
+
+  &__overlay {
+    background-color: var(--background);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
 
    &__container {
+     position: relative;
 
     h1 {
       font-size: 4.8rem;
       text-align: center;
     }
 
-   }
+  }
+
+  &__controls {
+    position: absolute;
+    bottom: 5.6rem;
+    z-index: 100;
+  }
 
 }

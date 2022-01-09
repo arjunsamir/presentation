@@ -29,7 +29,10 @@ const reducer = (state = initialState, action) => {
       return merge("id");
 
     case "SET_MULTIPLE":
-      return Object.assign({}, state, action.data)
+      return Object.assign({}, state, action.data);
+
+    case "SET_COUNTING":
+      return merge("counting");
 
     default:
       return state;

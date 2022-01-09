@@ -22,3 +22,23 @@ export const delay = async (time) => {
 
 
 export const timer = (time) => new Timer(time);
+
+
+export const insertScript = (src, id) => {
+
+  return new Promise(resolve => {
+
+      const ref = document.querySelector('script');
+
+      if (document.getElementById(id)) return resolve();
+
+      const js = document.createElement('script');
+      js.id = id;
+      js.src = src;
+      js.addEventListener('load', resolve);
+
+      ref.parentNode.insertBefore(js, ref);
+
+  });
+
+}
