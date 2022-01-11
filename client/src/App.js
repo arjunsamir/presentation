@@ -8,6 +8,7 @@ import useSocket from "./hooks/useSocket";
 // Import Views
 import Login from './pages/Login';
 import WaitingRoom from './pages/WaitingRoom';
+import Presentation from './pages/Presentation';
 
 // Import Store
 import reducer from "./store/reducer";
@@ -15,7 +16,7 @@ import initialState from "./store/initialState";
 import AppContext from "./store/AppContext";
 
 // Register Component Views
-const views = { Login, WaitingRoom };
+const views = { Login, WaitingRoom, Presentation };
 
 // Create App
 const App = () => {

@@ -35,6 +35,8 @@ app.use(compression());
 // Apply Routes
 app.post('/api/authenticate', routes.authenticate);
 app.post('/api/validate', routes.validateCode);
+app.post('/api/end', routes.endPresentation);
+app.get('/api/presentation', routes.getPresentation);
 app.get('*', routes.redirect)
 
 // Global Error Handler

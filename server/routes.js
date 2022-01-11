@@ -30,7 +30,9 @@ exports.authenticate = (req, res) => {
 
 exports.validateCode = (req, res) => {
 
-  const presentation = instance.presentation?.join(req.body.code);
+  const { code, id } = req.body;
+
+  const presentation = instance.presentation?.join(code, id);
 
   if (!presentation) {
     return res.status(200).json({
@@ -74,5 +76,12 @@ exports.endPresentation = (req, res) => {
 
 }
 
+
+exports.getPresentation = (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    presentation: instance.presentation
+  });
+}
 
 exports.redirect = (req, res) => res.redirect('/')

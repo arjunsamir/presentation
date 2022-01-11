@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import useCodepenCountdown from "../hooks/useCodepenCountdown";
 import anime from "animejs";
 import { delay } from "../helpers/utils";
@@ -27,7 +27,7 @@ const Countdown = ({ onComplete }) => {
     if (onComplete) onComplete();
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
 
     const fadeIn = async () => {
       await delay(1000);

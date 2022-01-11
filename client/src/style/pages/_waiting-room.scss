@@ -27,6 +27,32 @@
 
   }
 
+  &__bg-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    span {
+      display: block;
+      height: 60vh;
+      width: 60vh;
+      border-radius: 50%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      filter: blur(100px) opacity(40%);
+
+      background-color: var(--secondary);
+      transition: transform 0.2s ease-out;
+      will-change: transform;
+    }
+  }
+
   &__overlay {
     background-color: var(--background);
     height: 100%;
@@ -38,11 +64,22 @@
   }
 
    &__container {
-     position: relative;
+    position: relative;
+    @include flexCenter;
+    user-select: none;
 
     h1 {
       font-size: 4.8rem;
       text-align: center;
+      margin-bottom: 2.4rem;
+    }
+
+    p {
+      font-size: 2.4rem;
+      max-width: 76rem;
+      text-align: center;
+      opacity: .7;
+      line-height: 1.7;
     }
 
   }
@@ -51,6 +88,17 @@
     position: absolute;
     bottom: 5.6rem;
     z-index: 100;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 10rem;
+    background-color: #333;
+
+    & > p {
+      padding: 0 1.6rem 0.4rem 2.4rem;
+      font-size: 1.8rem;
+    }
   }
 
 }

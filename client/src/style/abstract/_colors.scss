@@ -1,4 +1,6 @@
 $primary: #A7CF87;
+$secondary: #AA92CC;
+$tertiary: #EEB559;
 $heading: #fff;
 $text: #E6E7E7;
 $background: #0A0C0D;
@@ -6,6 +8,8 @@ $error: #D65D65;
 
 :root {
   --primary: #{$primary};
+  --secondary: #{$secondary};
+  --tertiary: #{$tertiary};
   --heading: #{$heading};
   --text: #{$text};
   --background: #{$background};

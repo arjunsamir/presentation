@@ -1,39 +1,46 @@
-import { useState, useContext, useRef, useEffect } from "react"
+import { useState, useContext, useRef, useEffect, useLayoutEffect } from "react"
 import AppContext from "../store/AppContext"
 import anime from "animejs";
+import useAsyncScriptLoad from "../hooks/useAsyncScriptLoad";
 
 import { PlayButton } from "../components/Buttons";
 import Countdown from "../components/Countdown";
-import { insertScript } from "../helpers/utils";
 import Branding from "../components/Branding";
 
-const entryAnimation = (container) => {
-
-  const tl = anime.timeline({
-    easing: "easeInOutQuad",
-    duration: 1000
-  });
-
-  tl.add({
-    targets: container,
-    opacity: [0, 1]
-  })
-
-  return tl.finished
-
-}
 
 const WaitingRoom = () => {
 
+  // Manage State
   const { state, update } = useContext(AppContext);
   const container = useRef();
-  const [containerStyle, setContainerStyle] = useState({
-    opacity: 0
+  const blob = useRef();
+
+  // Create Function to track mousemovement
+  const followMouse = useRef((e) => {
+      
+    const offset = window.innerHeight * 0.3;
+  
+    anime({
+      targets: blob.current,
+      translateX: e.clientX - offset,
+      translateY: e.clientY - offset,
+      opacity: 1,
+      duration: 0
+    })
+  
   });
-  const [loaded, setLoaded] = useState(false);
 
+  const loaded = useAsyncScriptLoad("https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js")
 
-  const startCountdown = async () => {
+  useEffect(() => {
+
+    if (!state.counting) window.addEventListener("mousemove", followMouse.current);
+    else window.removeEventListener("mousemove", followMouse.current);
+  
+  }, [state.counting])
+
+  // Animate Content Into View
+  useLayoutEffect(() => {
 
     const tl = anime.timeline({
       easing: "easeInOutQuad",
@@ -42,27 +49,14 @@ const WaitingRoom = () => {
   
     tl.add({
       targets: container.current,
-      opacity: 0
+      opacity: [0, 1]
     })
 
-    await tl.finished;
+    anime.set(blob.current, {
+      opacity: 0
+    });
 
-    setContainerStyle({ opacity: 0 })
-    update("counting", true)
-  }
-
-
-  useEffect(() => {
-
-    const loadAssets = async () => {
-      await insertScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js");
-      setLoaded(true);
-    }
-    
-    if (!loaded) loadAssets();
-    entryAnimation(container.current).then(() => setContainerStyle({ opacity: 1 }));
-
-  }, [loaded]);
+  }, []);
 
   return (<>
     <Branding />
@@ -70,18 +64,42 @@ const WaitingRoom = () => {
       {state.counting && (
         <Countdown
           conuting={state.counting}
-          onComplete={() => console.log("you bitch")}
+          onComplete={() => update("view", "Presentation")}
         />
       )}
-      <div className="waiting-room__container" ref={container} style={containerStyle}>
+      <div className="waiting-room__bg-accent">
+        <span ref={blob} />
+      </div>
+      <div className="waiting-room__container" ref={container}>
         <h1>The presentation will begin soon</h1>
-        <p>This is an interactive presentation. You'll be able to interact and explore things on some of the slides.</p>
+        <p>Welcome to my portfolio review. Some of the slides will have interactive elements that you can explore during the presentation.</p>
       </div>
       {loaded && (
         <div className="waiting-room__controls">
+          <p>{state.count} Guests</p>
           <PlayButton
-            onClick={startCountdown}
             disabled={state.counting}
+            onClick={async () => {
+
+              const tl = anime.timeline({
+                easing: "easeInOutQuad",
+                duration: 1000
+              });
+
+              tl.add({
+                targets: blob.current,
+                opacity: 0
+              })
+            
+              tl.add({
+                targets: container.current,
+                opacity: 0
+              }, "-=500")
+          
+              await tl.finished;
+          
+              update("counting", true)
+            }}
           />
         </div>
       )}

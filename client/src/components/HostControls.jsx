@@ -2,6 +2,10 @@
 
 const HostControls = () => {
 
+  return (
+    <div className="host-controls"></div>
+  )
+
 }
 
 

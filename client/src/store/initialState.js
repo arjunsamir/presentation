@@ -12,9 +12,9 @@ const initialState = {
   role: role ?? "guest",
   name: "",
   count: 0,
-  // id: window.sessionStorage.getItem("id") ?? ""
-  id: "",
-  counting: false
+  id: window.sessionStorage.getItem("id") ?? "",
+  counting: false,
+  slide: 0
 }
 
 export default initialState;

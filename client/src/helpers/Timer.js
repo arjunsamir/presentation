@@ -1,13 +1,13 @@
 export default class Timer {
 
-  constructor( threshold = 2000 ) {
+  constructor(threshold = 2000 ) {
 
       this.threshold = threshold;
       this.timeout = null;
     
   }
 
-  start( callback ) {
+  start(callback) {
       this.initial = new Date();
 
       if ( !callback ) return this;
@@ -18,7 +18,14 @@ export default class Timer {
       return this;
   }
 
+  loop() {
+    this.initial = new Date();
+    this.timeout = setTimeout(this.loop.bind(this), this.threshold);
+    return this;
+  }
+
   stop() {
+      if (this.timeout) clearTimeout(this.timeout);
       this.final = new Date();
       this.elapsed = this.final - this.initial;
       this.remaining = ( this.elapsed >= this.threshold ) ? 0 : ( this.threshold - this.elapsed );

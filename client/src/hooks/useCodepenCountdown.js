@@ -170,7 +170,7 @@ const useCodepenCountdown = (callback) => {
                 var y = Math.floor(Math.floor(i/numberStageWidth)/4);
 
                 // If position exists and number is divisble by circle plus a pixel gap then add cordinates to array. So circles do not overlap
-                if((x && x%(circleRadius * 2 + 3) == 0) && (y && y%(circleRadius * 2 + 3) == 0)) {																															
+                if((x && x%(circleRadius * 2 + 3) === 0) && (y && y%(circleRadius * 2 + 3) === 0)) {																															
                     // Push object to numberPixels array with x and y coordinates
                     numberPixelCoordinates.push({x: x, y: y});
                   
@@ -258,7 +258,7 @@ const useCodepenCountdown = (callback) => {
       window.removeEventListener('resize', updateCanvasSize)
     }
 
-  }, [])
+  }, [callback])
 
 }
 

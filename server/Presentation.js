@@ -28,10 +28,25 @@ class Presentation {
     return this.getHost() === id;
   }
 
-  join(code) {
+  join(code, currentId) {
+
+    console.log(currentId);
 
     // Check if code is valid
     if (!code || !this.code || code !== this.code) return;
+
+    // Check if user is already in presentation
+    if (currentId && this.getGuests().includes(currentId)) return ({
+      presentation: this, 
+      id: currentId 
+    })
+
+    // Give Host Access Back To Host
+    else if (currentId === this.getHost()) return ({
+      presentation: this,
+      id: currentId,
+      role: 'host'
+    });
 
     // Add Guest
     const id = uniqid();
