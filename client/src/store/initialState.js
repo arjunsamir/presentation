@@ -4,7 +4,7 @@ const code = url.get("code");
 const role = url.get("role");
 
 // Clean URL
-window.history.replaceState({}, document.title, "/");
+if (process.env.NODE_ENV !== "production") window.history.replaceState({}, document.title, "/");
 
 const initialState = {
   view: "Login",

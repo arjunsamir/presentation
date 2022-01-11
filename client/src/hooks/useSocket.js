@@ -12,8 +12,6 @@ const useSocket = (id) => {
     const newSocket = io(process.env.REACT_APP_API_DOMAIN);
     setSocket(newSocket);
 
-    console.log(newSocket);
-
     console.log(`Socket Connected: ${id}`);
 
     return () => newSocket.close();
