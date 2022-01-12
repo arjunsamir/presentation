@@ -25,7 +25,11 @@ const App = () => {
   const [state, update] = useStateUpdate(reducer, initialState);
 
   // Establish Socket Connection
-  const socket = useSocket(state.id);
+  const socket = useSocket((s) => {
+
+    s.on("guests-changed", ({ count }) => update("count", count))
+
+  }, [state.name]);
 
   // Get Current Page
   const View = views[state.view];

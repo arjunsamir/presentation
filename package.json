@@ -20,6 +20,8 @@
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "cd client && yarn build",
+    "heroku-prebuild": "cd client && yarn install"
   }
 }

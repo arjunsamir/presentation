@@ -3,7 +3,7 @@ import { useState, useContext, useRef, useEffect } from "react"
 import AppContext from "../store/AppContext"
 import axios from "axios"
 import anime from "animejs";
-import { timer, delay } from "../helpers/utils"
+import { timer } from "../helpers/utils"
 
 // Import Components
 import Input from "../components/Input"
@@ -18,16 +18,13 @@ const Login = () => {
 
   // Create State
   const { state, update } = useContext(AppContext)
-  const [dataLoaded, setDataLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
   const [error, setError] = useState("")
   const [isFetching, setIsFetching] = useState(false)
   const container = useRef(null)
   const section = useRef(null)
-  const loaded = dataLoaded && assetsLoaded;
-
-  // Manage Host Mode
-  const isHost = state.role === "host";
+  const loopTimer = useRef(null)
 
   // Transition Away From Login Page
   const transitionOut = async () => {
@@ -55,6 +52,9 @@ const Login = () => {
   // Manage Submit Event
   const onSubmit = async () => {
 
+    // Prevent Multiple Submits
+    if (isFetching) return;
+
     // Prepare for minimum response time for animation
     setIsFetching(true);
     const t = timer(1000).start();
@@ -62,9 +62,9 @@ const Login = () => {
     try {
 
       // Send Request
-      const { data } = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/${isHost ? "authenticate" : "validate"}`, {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/authenticate`, {
         code: state.code,
-        id: state.id
+        key: state.key
       });
 
       // Handle Errors
@@ -75,40 +75,44 @@ const Login = () => {
       setIsFetching(false);
 
       // Update Global State & Session Storage
-      window.sessionStorage.setItem("id", data.id);
+      window.sessionStorage.setItem("code", data.presentation.code);
+      if (data.key) window.sessionStorage.setItem("key", data.key);
+
+      // Update Global State
       update("multiple", {
-        id: data.id,
         name: data.presentation.name,
-        count: data.presentation.count ?? state.count
+        count: data.presentation.count ?? state.count,
+        key: data.key ?? state.key,
+        role: data.role ?? state.role,
+        code: data.presentation.code ?? state.code,
       })
       
-      // Go To Waiting Room
+      // Transition Out
       await transitionOut();
-      update("view", data.presentation.view ?? "WaitingRoom");
+
+      // Go To Waiting Room
+      update("multiple", {
+        slide: data.presentation.slide ?? state.slide,
+        view: data.presentation.view ?? "WaitingRoom"
+      })
       
     }
+
     catch (err) {
       await t.hold();
       setError(err || "Something went wrong. Please try again.");
       setIsFetching(false);
     }
+
   }
 
-  // Make Initial Request
+  // Hanadle Preloader State
   useEffect(() => {
 
-    const onPageLoad = async () => {
-
-      // Start Loading Things
-      const t = timer(2000).loop();
-      const { data } = await axios(`${process.env.REACT_APP_API_DOMAIN}/api/presentation`);
-
-      console.log(data);
+    const onPageLoad = async (duration) => {
 
       // Wait For Minimum Load Time
-      await t.hold();
-
-      const duration = 550;
+      await loopTimer.current.hold();
 
       // Animate Preloader Out
       const tl = anime.timeline({
@@ -139,13 +143,14 @@ const Login = () => {
 
       await tl.finished;
 
-      setDataLoaded(true);
+      setLoaded(true);
 
     }
 
-    onPageLoad();
+    if (assetsLoaded) onPageLoad(550)
+    else loopTimer.current = timer(2000).loop()
 
-  }, []);
+  }, [assetsLoaded]);
 
   return (
     <>
@@ -168,13 +173,7 @@ const Login = () => {
           onLoad={() => setAssetsLoaded(true)}
         />
         <div className="login__container" ref={container}>
-          <h1 className="login__title">
-            {
-              isHost ? 
-                "Hey Arjun, you know exactly what to do..." : 
-                "Please enter your access code to join the presentation."
-            }
-          </h1>
+          <h1 className="login__title">Please enter your access code to join the presentation.</h1>
           <Input
             id="accessCode"
             label="Access Code"

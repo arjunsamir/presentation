@@ -5,6 +5,28 @@ exports.authenticate = (req, res) => {
 
   const [key, code, name] = req.body.code.split("__");
 
+  // Guest Trying To Join
+  if (key && (!code && !name)) {
+
+    const presentation = instance.presentation?.validate(key, req.body.key);
+
+    if (presentation) {
+      return res.status(200).json({
+        status: 'success',
+        valid: true,
+        ...presentation
+      });
+    }
+  
+    return res.status(200).json({
+      status: "error",
+      valid: false,
+      message: "We couldn't find any presentations matching that code"
+    });
+
+  }
+
+  // Host Trying to create Session
   if (!key || !code || key !== process.env.HOST_SECRET) {
     return res.status(200).json({
       status: "error",
@@ -22,7 +44,8 @@ exports.authenticate = (req, res) => {
     valid: true,
     message: "Authentication successful",
     presentation: instance.presentation,
-    id: instance.presentation.getHost()
+    role: "host",
+    key: instance.presentation.getHost()
   });
 
 }
@@ -30,9 +53,7 @@ exports.authenticate = (req, res) => {
 
 exports.validateCode = (req, res) => {
 
-  const { code, id } = req.body;
-
-  const presentation = instance.presentation?.join(code, id);
+  const presentation = instance.presentation?.validate(req.body.code);
 
   if (!presentation) {
     return res.status(200).json({

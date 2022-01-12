@@ -100,9 +100,9 @@ const useCodepenCountdown = (callback) => {
       // When we hit zero stop countdown
       if (countdownFrom === 0) {
         countdownRunning = false;
-        callback && callback();
         // Now that countdowns finised show the text Go
-        drawNumber('hi');
+        drawNumber('Hi', '600 400px Recoleta');
+        if (callback) setTimeout(callback, countdownTimer);
       }
 
       // Decrement number down
@@ -125,7 +125,7 @@ const useCodepenCountdown = (callback) => {
     loop();
 
 
-    function drawNumber(num) {
+    function drawNumber(num, font) {
 
     // Create a number on a seperate canvas
     // Use a seperate canvas thats smaller so we have less data to loop over when using getImagedata()
@@ -135,7 +135,7 @@ const useCodepenCountdown = (callback) => {
 
     numberStageCtx.fillStyle = "#0A0C0D";
     numberStageCtx.textAlign = 'center';
-    numberStageCtx.font = "bold 418px Recoleta";
+    numberStageCtx.font = font || "bold 418px Recoleta";
     numberStageCtx.fillText(num, 340, 400);
 
     var ctx = document.getElementById('canvas-number').getContext('2d');

@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 import io from 'socket.io-client';
 
-const useSocket = (id) => {
+const useSocket = (onConnect, [name, ...dependencies]) => {
 
   const [socket, setSocket] = useState();
 
   useEffect(() => {
     
-    if (!id) return;
+    if (!name) return;
 
     const newSocket = io(process.env.REACT_APP_API_DOMAIN);
     setSocket(newSocket);
 
-    console.log(`Socket Connected: ${id}`);
+    newSocket.on("connect", () => {
+      console.log(`Socket Connected to Presentation: ${name}`);
+      onConnect(newSocket);
+    });
 
     return () => newSocket.close();
   
-  }, [id]);
+  }, [name, ...dependencies]);
 
   return socket;
 

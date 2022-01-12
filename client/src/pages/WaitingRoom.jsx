@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, useEffect, useLayoutEffect } from "react"
+import { useContext, useRef, useEffect, useLayoutEffect } from "react"
 import AppContext from "../store/AppContext"
 import anime from "animejs";
 import useAsyncScriptLoad from "../hooks/useAsyncScriptLoad";
@@ -12,6 +12,7 @@ const WaitingRoom = () => {
 
   // Manage State
   const { state, update, socket } = useContext(AppContext);
+  const moved = useRef(false);
   const container = useRef();
   const blob = useRef();
 
@@ -19,12 +20,21 @@ const WaitingRoom = () => {
   const followMouse = useRef((e) => {
       
     const offset = window.innerHeight * 0.3;
+
+    if (!moved.current) {
+      anime({
+        targets: blob.current,
+        opacity: 1,
+        duration: 1200,
+        easing: "easeOutQuad"
+      })
+      moved.current = true;
+    }
   
     anime({
       targets: blob.current,
       translateX: e.clientX - offset,
       translateY: e.clientY - offset,
-      opacity: 1,
       duration: 0
     })
   
@@ -57,7 +67,7 @@ const WaitingRoom = () => {
   // Load Scripts for countdown
   const loaded = useAsyncScriptLoad("https://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js")
 
-  // Create Mousemove Effect
+  // Add Event Listeners
   useEffect(() => {
 
     if (!state.counting) {
@@ -88,14 +98,16 @@ const WaitingRoom = () => {
       opacity: 0
     });
 
-  }, []);
+  }, [])
+
+  console.log(state)
 
   return (<>
     <Branding />
     <section className="waiting-room">
       {state.counting && (
         <Countdown
-          conuting={state.counting}
+          name={state.name}
           onComplete={() => update("view", "Presentation")}
         />
       )}
@@ -108,11 +120,12 @@ const WaitingRoom = () => {
       </div>
       {loaded && state.role === "host" && (
         <div className="waiting-room__controls">
-          <p>{state.count}0 Guests</p>
+          <p>{state.count || "No"} Guest{state.count !== 1 && "s"}</p>
           <PlayButton
             disabled={state.counting}
             onClick={() => {
 
+              // Start Countdown For Everyone
               socket.emit("start-countdown", { message: 'hello' });
 
               const tl = anime.timeline({
@@ -135,7 +148,7 @@ const WaitingRoom = () => {
                 targets: '.waiting-room__controls',
                 scale: 0,
                 duration: 300
-              })
+              });
 
             }}
           />

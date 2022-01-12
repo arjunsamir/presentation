@@ -24,15 +24,15 @@ const reducer = (state = initialState, action) => {
 
     case "SET_COUNT":
       return merge("count");
-
-    case "SET_ID":
-      return merge("id");
-
+      
     case "SET_COUNTING":
       return merge("counting");
 
     case "SET_SLIDE":
       return merge("slide");
+
+    case "SET_KEY":
+      return merge("key");
 
     case "SET_MULTIPLE":
       return Object.assign({}, state, action.data);

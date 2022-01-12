@@ -20,43 +20,46 @@ class Presentation {
     this.code = code;
     this.name = name;
     this.view =  "WaitingRoom";
+    this.slide = 0;
     this.count = 0;
 
   }
 
-  isHost(id) {
-    return this.getHost() === id;
+  isHost(key) {
+    return this.getHost() === key;
   }
 
-  join(code, currentId) {
+  updateCount() {
+      
+      // Update Count
+      this.count = this.getGuests().length - 1;
+      if (this.count < 0) this.count = 0;
 
-    console.log(currentId);
+      return this.count;
+  
+  }
 
-    // Check if code is valid
-    if (!code || !this.code || code !== this.code) return;
+  join(id) {
 
-    // Check if user is already in presentation
-    if (currentId && this.getGuests().includes(currentId)) return ({
-      presentation: this, 
-      id: currentId 
-    })
-
-    // Give Host Access Back To Host
-    else if (currentId === this.getHost()) return ({
-      presentation: this,
-      id: currentId,
-      role: 'host'
-    });
-
-    // Add Guest
-    const id = uniqid();
     this.addGuest(id);
 
     // Update Count
-    this.count = this.getGuests().length;
+    return this.updateCount();
 
-    // Return Presentaiton
-    return { presentation: this, id };
+  }
+
+  validate(code, key) {
+
+    // Check if user is Host trying to re-join
+    if (key && this.isHost(key) && code === this.code) return ({
+      presentation: this,
+      role: "host"
+    })
+
+    if (code === this.code) return ({
+      presentation: this,
+      role: "guest"
+    })
 
   }
 
@@ -69,8 +72,16 @@ class Presentation {
       this.removeGuest(id);
 
       // Update Count
-      this.count = this.getGuests().length;
+      return this.updateCount();
   
+  }
+
+  start() {
+    this.view = "Presentation";
+  }
+
+  changeSlide(slide) {
+    this.slide = slide;
   }
 
 }

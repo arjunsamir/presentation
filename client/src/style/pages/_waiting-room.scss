@@ -103,4 +103,28 @@
     }
   }
 
+  &__exit-text {
+    
+    position: absolute;
+    top: calc(50% - 17.8rem);
+    left: calc(50% - 21.4rem);
+    z-index: 1000;
+
+    height: 60rem;
+
+    // transform: scale(.5);
+
+
+    h1 {
+      font-size: 40rem;
+      font-weight: 600;
+      width: max-content;
+
+      span {
+        color: var(--primary);
+        font-weight: 400;
+      }
+    }
+  }
+
 }

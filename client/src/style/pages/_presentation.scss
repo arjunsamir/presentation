@@ -1,0 +1,78 @@
+.presentation {
+  position: relative;
+}
+
+
+.slide {
+  min-height: 100vh;
+
+  &__centered {
+    min-height: 100vh;
+    @include flexCenter;
+  }
+
+  &__jumbo-title {
+    font-size: 6.4rem;
+  }
+
+  &__super-title {
+    font-size: 12rem;
+  }
+
+}
+
+
+.host-controls {
+
+  width: 100%;
+  @include flexCenter;
+  
+  position: fixed;
+  bottom: 5.6rem;
+  z-index: 99999;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+
+    height: 6.4rem;
+    background-color: #333;
+    border-radius: 6.4rem;
+  }
+
+  &__guests {
+    padding: 0 2.4rem;
+    width: 14rem;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  &__button {
+    display: block;
+    border: none;
+    background: none;
+    color: var(--primary);
+
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out, filter 0.2s ease-out;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+
+    svg {
+      height: 6.4rem;
+      width: 6.4rem;
+    }
+
+    &.back svg {
+      transform: rotate(180deg);
+    }
+
+    &.disabled {
+      pointer-events: none;
+      filter: grayscale(80%) opacity(70%);
+    }
+  }
+
+}

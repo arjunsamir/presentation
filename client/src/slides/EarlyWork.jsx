@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from "react";
 import BackgroundVideo from "../components/BackgroundVideo";
 import anime from "animejs";
 
-const Intro = ({ transitionOut }) => {
+const EarlyWork = ({ transitionOut }) => {
 
   // Create Refs
   const text = useRef();
@@ -72,7 +72,7 @@ const Intro = ({ transitionOut }) => {
       />
       <div className="slide__centered">
         <div className="slide__content">
-          <h1 className="slide__super-title" ref={text}>I'm <span className="accent--primary">Arjun</span></h1>
+          <h1 className="slide__jumbo-title" ref={text}>My early work</h1>
         </div>
       </div>
     </div>
@@ -80,6 +80,6 @@ const Intro = ({ transitionOut }) => {
 };
 
 
-export default Intro;
+export default EarlyWork;
 
 // This slide should be the generic intro slide

@@ -5,47 +5,51 @@ import Branding from "../components/Branding";
 
 // Import Slides
 import Intro from "../slides/Intro";
+import DesignDNA from "../slides/DesignDNA";
+import EarlyWork from "../slides/EarlyWork";
 
 // Register Slides
-const Slides = [Intro];
+const Slides = [Intro, DesignDNA, EarlyWork];
 
 const Presentation = () => {
 
   // Create State
-  const { state } = useContext(AppContext);
-  const [slideIndex, setSlideIndex] = useState(state.slide);
+  const { state, update, socket } = useContext(AppContext);
 
   // Manage Slide Transition Functions 
   const transitionOut = useRef();
 
-  // Get Current Slide
-  const Slide = Slides[slideIndex];
+  const changeSlides = useRef(async ({ slide }) => {
 
-  // Manage Slide Transitions
+    // Wait For Slide Exit Animation
+    if (transitionOut.current) await transitionOut.current();
+
+    // Reset Ref Value
+    transitionOut.current = null;
+
+    // Update State
+    update("slide", slide);
+
+  });
+
+  // Get Current Slide
+  const Slide = Slides[state.slide];
+
+  // Manage Slide Transition Listeners
   useEffect(() => {
 
-    const changeSlides = async () => {
+    socket.on("slide-change", changeSlides.current);
 
-      // Wait For Slide Exit Animation
-      if (transitionOut.current) await transitionOut.current();
+    return () => socket.off("slide-change", changeSlides.current);
 
-      // Reset Ref Value
-      transitionOut.current = null;
-
-      setSlideIndex(state.slide);
-
-    }
-
-    changeSlides();
-
-  }, [state.slide]);
+  }, []);
 
   return (
     <>
       <Branding />
       <section className="presentation">
         <Slide transitionOut={transitionOut} />
-        {state.role === "host" && <HostControls />}
+        {state.role === "host" && <HostControls slides={Slides.length} />}
       </section>
     </>
   )
