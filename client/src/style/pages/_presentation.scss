@@ -17,6 +17,21 @@
 
   &__super-title {
     font-size: 12rem;
+
+    &.hard-light {
+      mix-blend-mode: hard-light;
+    }
+  }
+
+  &__subtitle {
+    font-size: 2.4rem;
+
+    margin-top: 2.4rem;
+
+    &.large {
+      font-size: 2.8rem;
+    }
+    
   }
 
 }

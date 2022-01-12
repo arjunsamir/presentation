@@ -1,5 +1,4 @@
 import { useLayoutEffect, useRef } from "react";
-import BackgroundVideo from "../components/BackgroundVideo";
 import anime from "animejs";
 
 const EarlyWork = ({ transitionOut }) => {
@@ -53,23 +52,6 @@ const EarlyWork = ({ transitionOut }) => {
 
   return (
     <div className="slide" ref={slide}>
-      <BackgroundVideo
-        sources={[
-          {
-            src: "/assets/video/arjun-blur.webm",
-            type: "video/webm"
-          },
-          {
-            src: "/assets/video/arjun-blur.mp4",
-            type: "video/mp4"
-          }
-        ]}
-        overlay={{
-          opacity: 0.65,
-          color: "var(--background)"
-        }}
-        fadeIn
-      />
       <div className="slide__centered">
         <div className="slide__content">
           <h1 className="slide__jumbo-title" ref={text}>My early work</h1>

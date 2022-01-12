@@ -56,23 +56,23 @@ const Intro = ({ transitionOut }) => {
       <BackgroundVideo
         sources={[
           {
-            src: "/assets/video/arjun-blur.webm",
+            src: "/assets/video/reel.webm",
             type: "video/webm"
           },
           {
-            src: "/assets/video/arjun-blur.mp4",
+            src: "/assets/video/reel.mp4",
             type: "video/mp4"
           }
         ]}
         overlay={{
-          opacity: 0.65,
+          opacity: 0.25,
           color: "var(--background)"
         }}
         fadeIn
       />
       <div className="slide__centered">
         <div className="slide__content">
-          <h1 className="slide__super-title" ref={text}>I'm <span className="accent--primary">Arjun</span></h1>
+          <h1 className="slide__super-title hard-light" ref={text}>I'm <span className="accent--primary">Arjun</span></h1>
         </div>
       </div>
     </div>
