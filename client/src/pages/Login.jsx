@@ -62,7 +62,7 @@ const Login = () => {
     try {
 
       // Send Request
-      const { data } = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/api/authenticate`, {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_DOMAIN}api/authenticate`, {
         code: state.code,
         key: state.key
       });
