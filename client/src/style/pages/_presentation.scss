@@ -6,9 +6,100 @@
 .slide {
   min-height: 100vh;
 
+  hr {
+    height: 3px;
+    width: 100%;
+    max-width: 60rem;
+    background-color: rgba(#fff, .25);
+    margin: 4.8rem auto;
+  }
+
+  &__view {
+    padding-top: 12rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__tab-layout {
+    flex-grow: 10;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__page {
+    flex-grow: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__tabs {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding-bottom: 4.8rem;
+  }
+
+  &__tab {
+    font-size: 2rem;
+    padding: 0.8rem 2.4rem 1.2rem;
+    border-radius: 10rem;
+    background-color: rgba(#fff, .25);
+
+    transition: background-color 0.2s ease-out, color 0.2s ease-out, transform 0.1s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.active {
+      background-color: var(--primary);
+      color: var(--background);
+    }
+
+    &:not(:last-child) {
+      margin-right: 2.4rem;
+    }
+  }
+
+  &__content-box {
+
+    width: 100%;
+    max-width: 90rem;
+
+    h4 {
+      font-size: 3.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    p {
+      font-size: 2rem;
+    }
+
+  }
+
+  &__image-box {
+    width: 100%;
+    flex-grow: 10;
+
+    @include flexCenter;
+
+    img {
+      height: 65vh;
+    }
+  }
+
+  // Text Classes
+
   &__centered {
     min-height: 100vh;
     @include flexCenter;
+  }
+
+  &__title {
+    font-size: 3.6rem;
   }
 
   &__jumbo-title {
@@ -31,7 +122,36 @@
     &.large {
       font-size: 2.8rem;
     }
+
+    &.max-70 {
+      max-width: 70rem;
+      text-align: center;
+    }
     
+    &.max-80 {
+      max-width: 80rem;
+      text-align: center;
+    }
+
+  }
+
+  &__caption {
+    font-size: 2.8rem;
+    margin-top: 3.2rem;
+  }
+
+  &__video {
+    @include flexCenter;
+  }
+
+  &__logos {
+    margin-top: 9.6rem;
+    opacity: .4;
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    grid-column-gap: 6.4rem;
+    grid-row-gap: 2.4rem;
+    font-size: 3.6rem;
   }
 
 }

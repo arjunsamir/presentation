@@ -15,6 +15,7 @@ const BackgroundVideo = ({ sources, overlay, onLoad, fadeIn }) => {
         loop
         muted
         playsInline
+        controls={false}
         style={overlay && overlay.blur ? { filter: `blur(${overlay.blur}px)` } : {}}
         onLoadedData={() => {
           if (fadeIn) setOpacity(alpha);

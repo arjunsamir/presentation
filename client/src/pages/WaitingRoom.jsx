@@ -100,8 +100,6 @@ const WaitingRoom = () => {
 
   }, [])
 
-  console.log(state)
-
   return (<>
     <Branding />
     <section className="waiting-room">

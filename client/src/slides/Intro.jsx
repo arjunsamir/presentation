@@ -23,6 +23,13 @@ const Intro = ({ transitionOut }) => {
         opacity: [0, 1]
       })
 
+      tl.add({
+        targets: slide.current.querySelector(".background-video"),
+        opacity: [0, 1],
+        duration: 1000,
+        delay: 1000
+      })
+
     }
 
     // Run Entry Animation
@@ -68,7 +75,6 @@ const Intro = ({ transitionOut }) => {
           opacity: 0.25,
           color: "var(--background)"
         }}
-        fadeIn
       />
       <div className="slide__centered">
         <div className="slide__content">

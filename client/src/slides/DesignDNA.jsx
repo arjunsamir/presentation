@@ -102,7 +102,7 @@ const DesignDNA = ({ transitionOut }) => {
       <div className="slide__centered">
         <div className="slide__content">
           <h4 className="slide__super-title" ref={text}>Design is in my <span className="accent--primary">DNA</span></h4>
-          <p className="slide__subtitle large centered-text" ref={subtitle}>It turns out "design thinking" is just my normal thinking.</p>
+          <p className="slide__subtitle large centered-text" ref={subtitle}>It turns out "design thinking" is just my normal mode of thinking.</p>
         </div>
       </div>
       <div className="dna" ref={dna}>
